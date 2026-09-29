@@ -2,7 +2,13 @@
 
 A production frontend for **مدارس الموهوبين التقنية** (Technical Gifted Schools), the
 first government schools in Saudi Arabia specialising in technical giftedness, run by
+
 **أكاديمية طويق** in partnership with *
+
+
+
+
+
 An educational project built with AI, demonstrating clean file structure and
 secure API key handling via .env and .env.example.
 
