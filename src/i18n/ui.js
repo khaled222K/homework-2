@@ -12,7 +12,7 @@ export const ui = {
     tracks: { ar: 'المسارات التقنية', en: 'Technical Tracks' },
     programs: { ar: 'البرامج والأنشطة', en: 'Programmes' },
     achievements: { ar: 'الإنجازات', en: 'Achievements' },
-    gallery: { ar: 'معرض الصور', en: 'Gallery' },
+    gallery: { ar: 'الصور والمقاطع', en: 'Photos & video' },
     admission: { ar: 'القبول', en: 'Admission' },
     contact: { ar: 'تواصل', en: 'Contact' },
     menu: { ar: 'القائمة', en: 'Menu' },
@@ -79,7 +79,7 @@ export const ui = {
     },
   },
   gallery: {
-    eyebrow: { ar: 'معرض الصور', en: 'Gallery' },
+    eyebrow: { ar: 'الصور والمقاطع', en: 'Photos & video' },
     title: { ar: 'صور المدارس', en: 'School photography' },
     all: { ar: 'الكل', en: 'All' },
     categories: {
@@ -91,11 +91,22 @@ export const ui = {
       projects: { ar: 'المشاريع', en: 'Projects' },
       competitions: { ar: 'المسابقات', en: 'Competitions' },
     },
-    emptyTitle: { ar: 'بانتظار صور موثّقة', en: 'Awaiting verified photography' },
-    emptyBody: {
-      ar: 'يلتزم هذا الموقع بعرض الصور الحقيقية للمدارس فقط. ولم يتسنَّ التحقق من صور منشورة ومنسوبة صراحةً إلى مدارس الموهوبين التقنية عند بناء هذه الصفحة، ولذلك لا تُعرض هنا صور تعبيرية أو مولّدة. يمكن الاطلاع على الصور الرسمية عبر القنوات التالية:',
-      en: 'This site shows only authentic photographs of the schools. No published images explicitly attributed to the Technical Gifted Schools could be verified while this page was built, so no stock or generated imagery stands in for them. Official photography is available through the channels below:',
+    channelsTitle: { ar: 'شاهد المدرسة وبيئتها', en: 'See the schools and their environment' },
+    channelsLead: {
+      ar: 'يعرض هذا الموقع الصور الحقيقية للمدارس فقط، ولا ينشر صورًا لم يتم التحقق من نسبتها إليها. وبدلًا من ذلك، نوجّهك مباشرةً إلى الجهات التي تنشر موادها المصوّرة بنفسها — المدارس وأكاديمية طويق ووزارة التعليم ووكالة الأنباء السعودية — حيث الصور والمقاطع بمصدرها الأصلي.',
+      en: 'This site shows only authentic photographs of the schools, and does not publish images whose attribution has not been verified. Instead it points you straight to the bodies that publish their own imagery — the schools, Tuwaiq Academy, the Ministry of Education and the Saudi Press Agency — where the photographs and video sit at their original source.',
     },
+    featuredTitle: { ar: 'ابدأ من هنا', en: 'Start here' },
+    featuredNote: {
+      ar: 'أسرع طريق لمشاهدة صور المدارس ومقاطعها.',
+      en: 'The quickest route to the schools’ photography and video.',
+    },
+    ownerLabels: {
+      schools: { ar: 'قناة المدارس نفسها', en: 'The schools’ own channel' },
+      academy: { ar: 'الجهة المشغّلة', en: 'The operating body' },
+      government: { ar: 'جهة حكومية', en: 'Government body' },
+    },
+    view: { ar: 'مشاهدة', en: 'View' },
     lightboxClose: { ar: 'إغلاق معرض الصور', en: 'Close gallery' },
     lightboxNext: { ar: 'الصورة التالية', en: 'Next image' },
     lightboxPrev: { ar: 'الصورة السابقة', en: 'Previous image' },

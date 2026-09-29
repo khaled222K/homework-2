@@ -10,8 +10,9 @@
  *
  * The gallery, hero and programme cards are all wired to this manifest and will
  * render real photography the moment entries are added — no component changes
- * are needed. Until then they fall back to the designed non-photographic
- * treatments, which never claim to depict the school.
+ * are needed. Until then the hero uses a designed, non-pictorial treatment that
+ * never claims to depict the school, and the gallery section routes visitors to
+ * the publishers who do hold authentic imagery (see ./channels.js).
  *
  * HOW TO ADD A PHOTOGRAPH
  * -----------------------

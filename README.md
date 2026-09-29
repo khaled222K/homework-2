@@ -88,15 +88,23 @@ responses. Each maps to a distinct, localised message in the UI with a retry.
 
 ## Photography
 
-The gallery, hero and cards all read [`src/data/media.js`](src/data/media.js), which
-ships **empty** — no image is presented as a photograph of the schools unless its
-publishing page identifies it as one, and none could be verified when this was built.
-No stock or generated imagery stands in.
+No image is presented as a photograph of the schools unless its publishing page
+identifies it as one, and none could be verified when this was built. No stock or
+generated imagery stands in.
 
-To turn the gallery on, drop verified images into `public/media/` and register them in
-the manifest. No component changes are needed. See
-[`public/media/README.md`](public/media/README.md) for sourcing rules and file
-guidance.
+So the *الصور والمقاطع* section sends visitors to the publishers who do hold
+authentic photography and video — the schools' own account, Tuwaiq Academy's
+channels, the Ministry of Education media centre and SPA. Those are recorded in
+[`src/data/channels.js`](src/data/channels.js), and each group is badged with whose
+channel it is, since the schools' account, the operating academy's, and a ministry
+release are not the same thing. The assistant knows them too, so it can answer
+"where can I see the school?".
+
+The photo grid is still fully built and reads
+[`src/data/media.js`](src/data/media.js), which ships empty. Drop verified images
+into `public/media/`, register them in the manifest, and the grid appears above the
+channel list — no component changes needed. See
+[`public/media/README.md`](public/media/README.md) for sourcing rules.
 
 ## Architecture
 

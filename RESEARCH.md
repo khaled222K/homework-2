@@ -88,8 +88,29 @@ such image could be verified while this site was built. Stock and generated imag
 are not acceptable substitutes, so the hero and gallery use designed,
 non-pictorial treatments that never imply they depict the campus.
 
-The gallery is fully built and reads from [`src/data/media.js`](src/data/media.js) —
-adding verified entries there turns it on with no component changes. See
+Instead of leaving the section empty, it routes visitors to the publishers who do
+hold authentic photography and video of the schools and their environment. Those
+channels are recorded in [`src/data/channels.js`](src/data/channels.js), each
+verified as belonging to the schools, to Tuwaiq Academy (the operator), or to the
+government bodies that covered them — and each group is badged in the UI with whose
+channel it is, because the schools' own account, the academy's, and a ministry
+release are three different things.
+
+| Channel | Owner |
+|---|---|
+| https://x.com/TuwaiqSchools (+ `/media`, `/highlights`) | The schools |
+| https://www.youtube.com/@TuwaiqAcademy_ | Tuwaiq Academy |
+| https://www.youtube.com/watch?v=XaD-inLGgZM (introductory film) | Tuwaiq Academy |
+| https://www.instagram.com/tuwaiqacademy/ | Tuwaiq Academy |
+| https://www.tiktok.com/@tuwaiqacademy | Tuwaiq Academy |
+| https://www.linkedin.com/school/tuwaiqacademy/ | Tuwaiq Academy |
+| https://x.com/TuwaiqAcademy | Tuwaiq Academy |
+| https://www.moe.gov.sa/ar/mediacenter/ and the two news releases | Ministry of Education |
+| https://www.spa.gov.sa/N2157339 | Saudi Press Agency |
+
+The photo grid itself is still fully built and reads from
+[`src/data/media.js`](src/data/media.js) — adding verified entries there turns it on
+above the channel list, with no component changes. See
 [`public/media/README.md`](public/media/README.md) for the procedure.
 
 ## Research conditions

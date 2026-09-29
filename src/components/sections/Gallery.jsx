@@ -3,9 +3,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useLanguage } from '../../i18n/LanguageContext.jsx';
 import ui from '../../i18n/ui.js';
 import { photographs, activeCategories, photosByCategory } from '../../data/media.js';
-import { contact } from '../../data/school.js';
+import { channelGroups, featuredChannels } from '../../data/channels.js';
 import Section from '../ui/Section.jsx';
 import Reveal from '../ui/Reveal.jsx';
+import Badge from '../ui/Badge.jsx';
+import SourceNote from '../ui/SourceNote.jsx';
 import Icon from '../ui/Icon.jsx';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll.js';
 import { EASE } from '../ui/motion.js';
@@ -124,58 +126,120 @@ function Lightbox({ items, index, onClose, onStep }) {
   );
 }
 
-/**
- * The empty state.
- *
- * Shown when no photograph has been verified. It explains the rule rather than
- * hiding the section, and routes the visitor to the publishers who do hold
- * authentic imagery.
- */
-function AwaitingPhotography() {
-  const { t } = useLanguage();
-
-  const channels = [
-    { label: t({ ar: 'الموقع الرسمي للمدارس', en: 'The schools’ official website' }), url: contact.website.url },
-    { label: `${contact.social[0].network} · ${contact.social[0].handle}`, url: contact.social[0].url },
-    { label: t({ ar: 'المركز الإعلامي لوزارة التعليم', en: 'Ministry of Education media centre' }), url: 'https://www.moe.gov.sa/ar/mediacenter/' },
-    { label: t({ ar: 'وكالة الأنباء السعودية', en: 'Saudi Press Agency' }), url: 'https://www.spa.gov.sa/' },
-  ];
+/** One channel card. `featured` gives it the heavier treatment. */
+function ChannelCard({ channel, index, featured = false }) {
+  const { t, lang } = useLanguage();
 
   return (
-    <Reveal>
-      <div className="relative overflow-hidden rounded-panel border border-mist-200 bg-mist-50 p-8 sm:p-12">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-motif grid-motif-fade opacity-70" />
+    <Reveal
+      as="li"
+      index={index}
+      className={
+        featured
+          ? 'card-interactive group relative flex flex-col overflow-hidden bg-navy-950 p-6 sm:p-7'
+          : 'card-interactive group relative flex flex-col p-6'
+      }
+    >
+      <a href={channel.url} target="_blank" rel="noopener noreferrer" className="flex flex-1 flex-col">
+        {/* The whole card is the target; the link is stretched over it. */}
+        <span aria-hidden="true" className="absolute inset-0" />
 
-        <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center lg:gap-14">
-          <div>
-            <span className="grid h-12 w-12 place-items-center rounded-xl bg-white text-royal-700 shadow-card">
-              <Icon name="image" className="h-6 w-6" strokeWidth={1.5} />
-            </span>
-            <h3 className="mt-6 text-2xl font-semibold text-navy-900">{t(ui.gallery.emptyTitle)}</h3>
-            <p className="mt-4 max-w-prose text-pretty leading-relaxed text-ink-muted">{t(ui.gallery.emptyBody)}</p>
-          </div>
+        <span
+          className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors duration-500 ${
+            featured
+              ? 'bg-white/10 text-white group-hover:bg-white group-hover:text-navy-950'
+              : 'bg-mist-100 text-royal-700 group-hover:bg-royal-700 group-hover:text-white'
+          }`}
+        >
+          <Icon name={channel.icon} className="h-5 w-5" strokeWidth={1.5} filled={channel.brand} />
+        </span>
 
-          <ul className="grid gap-2.5">
-            {channels.map((channel) => (
-              <li key={channel.url}>
-                <a
-                  href={channel.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-3 rounded-xl border border-mist-200 bg-white px-4 py-3.5 text-sm font-medium text-navy-800 transition-[border-color,box-shadow,transform] duration-300 ease-premium hover:-translate-y-0.5 hover:border-royal-200 hover:shadow-card"
-                >
-                  <span className="min-w-0 truncate">{channel.label}</span>
-                  <Icon
-                    name="external"
-                    className="h-4 w-4 shrink-0 text-ink-faint transition-colors duration-300 group-hover:text-royal-700"
-                  />
-                </a>
-              </li>
+        <h4 className={`mt-5 text-[1.0625rem] font-semibold leading-snug ${featured ? 'text-white' : 'text-navy-900'}`}>
+          {t(channel.nameAr, channel.nameEn)}
+        </h4>
+
+        {channel.handle && (
+          <p className={`mt-1 text-xs ${featured ? 'text-navy-400' : 'text-ink-faint'}`} dir="ltr">
+            {channel.handle}
+          </p>
+        )}
+
+        <p
+          className={`mt-3 flex-1 text-pretty text-sm leading-relaxed ${
+            featured ? 'text-navy-300' : 'text-ink-muted'
+          }`}
+        >
+          {t(channel.descAr, channel.descEn)}
+        </p>
+
+        <span
+          className={`mt-5 inline-flex items-center gap-1.5 text-sm font-medium ${
+            featured ? 'text-white' : 'text-royal-700'
+          }`}
+        >
+          {t(ui.gallery.view)}
+          <Icon
+            name={lang === 'ar' ? 'arrowLeft' : 'arrowRight'}
+            className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:-translate-x-0.5 ltr:group-hover:translate-x-0.5"
+          />
+        </span>
+      </a>
+    </Reveal>
+  );
+}
+
+/**
+ * Where to see the schools.
+ *
+ * Rather than republish imagery whose attribution cannot be verified, this
+ * routes visitors to the publishers who hold it. Each group is badged with whose
+ * channel it is, because the schools' own account, the operating academy's, and a
+ * ministry release are three different things.
+ */
+function Channels() {
+  const { t } = useLanguage();
+
+  return (
+    <div className="grid gap-16">
+      {/* The shortest path first. */}
+      <div>
+        <Reveal className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <h4 className="text-lg font-semibold text-navy-900">{t(ui.gallery.featuredTitle)}</h4>
+          <p className="text-sm text-ink-faint">{t(ui.gallery.featuredNote)}</p>
+        </Reveal>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredChannels.map((channel, i) => (
+            <ChannelCard key={channel.id} channel={channel} index={i} featured />
+          ))}
+        </ul>
+      </div>
+
+      {channelGroups.map((group) => (
+        <div key={group.id}>
+          <Reveal>
+            <div className="flex flex-wrap items-center gap-3">
+              <h4 className="text-lg font-semibold text-navy-900">{t(group.titleAr, group.titleEn)}</h4>
+              <Badge variant={group.owner === 'schools' ? 'royal' : 'neutral'}>
+                {t(ui.gallery.ownerLabels[group.owner])}
+              </Badge>
+            </div>
+            <p className="mt-3 max-w-prose text-pretty text-sm leading-relaxed text-ink-muted">
+              {t(group.noteAr, group.noteEn)}
+            </p>
+          </Reveal>
+
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {group.items.map((channel, i) => (
+              <ChannelCard key={channel.id} channel={channel} index={i} />
             ))}
           </ul>
+
+          <Reveal className="mt-5">
+            <SourceNote keys={group.sources} />
+          </Reveal>
         </div>
-      </div>
-    </Reveal>
+      ))}
+    </div>
   );
 }
 
@@ -193,11 +257,15 @@ export function Gallery() {
   );
 
   return (
-    <Section id="gallery" eyebrow={t(ui.gallery.eyebrow)} title={t(ui.gallery.title)} tone="light">
-      {photographs.length === 0 ? (
-        <AwaitingPhotography />
-      ) : (
-        <>
+    <Section
+      id="gallery"
+      eyebrow={t(ui.gallery.eyebrow)}
+      title={t(ui.gallery.channelsTitle)}
+      lead={t(ui.gallery.channelsLead)}
+      tone="light"
+    >
+      {photographs.length > 0 && (
+        <div className="mb-20">
           {categories.length > 2 && (
             <Reveal className="mb-8 flex flex-wrap gap-2">
               {categories.map((c) => (
@@ -259,8 +327,10 @@ export function Gallery() {
               ))}
             </AnimatePresence>
           </motion.ul>
-        </>
+        </div>
       )}
+
+      <Channels />
 
       <AnimatePresence>
         {openAt !== null && (

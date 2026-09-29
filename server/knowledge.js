@@ -8,6 +8,7 @@
  */
 import schoolData from '../src/data/school.js';
 import { sources } from '../src/data/sources.js';
+import { channelGroups } from '../src/data/channels.js';
 
 const bullet = (s) => `- ${s}`;
 
@@ -75,6 +76,19 @@ export function buildKnowledgeContext() {
   lines.push(bullet(`وزارة التعليم / Ministry of Education: ${contact.ministryWebsite.url}`));
   contact.social.forEach((s) => lines.push(bullet(`${s.network}: ${s.handle} — ${s.url}`)));
   lines.push(bullet(`${contact.note.ar} | ${contact.note.en}`));
+
+  lines.push('', '## أين تُشاهَد صور المدارس وبيئتها / WHERE TO SEE PHOTOGRAPHY AND VIDEO');
+  lines.push(
+    bullet(
+      'لا يستضيف هذا الموقع صورًا للمدارس، بل يوجّه إلى الجهات التي تنشرها. عند السؤال عن الصور أو المقاطع أو شكل المدرسة من الداخل، وجّه المستخدم إلى القنوات التالية. || This site hosts no photographs of the schools; it points to the publishers instead. When asked about photos, video or what the school looks like inside, direct the user to the channels below.',
+    ),
+  );
+  channelGroups.forEach((group) => {
+    lines.push(bullet(`${group.titleAr} (${group.titleEn}): ${group.noteAr}`));
+    group.items.forEach((item) =>
+      lines.push(`  - ${item.nameAr} (${item.nameEn}): ${item.url}`),
+    );
+  });
 
   lines.push('', '## المصادر / SOURCES');
   Object.values(sources).forEach((s) => lines.push(bullet(`${s.label.ar} — ${s.url}`)));
