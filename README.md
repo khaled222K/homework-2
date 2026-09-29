@@ -2,7 +2,6 @@
 
 A production frontend for **مدارس الموهوبين التقنية** (Technical Gifted Schools), the
 first government schools in Saudi Arabia specialising in technical giftedness, run by
-
 **أكاديمية طويق** in partnership with *
 
 
