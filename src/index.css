@@ -1,0 +1,134 @@
+/* IBM Plex Sans Arabic is loaded from index.html with a preconnect, so the
+   font request starts in parallel with this stylesheet rather than behind it. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --nav-height: 4.5rem;
+    color-scheme: light;
+  }
+
+  * {
+    @apply border-mist-200;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Anchored sections must clear the fixed navigation bar. */
+    scroll-padding-top: calc(var(--nav-height) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink antialiased;
+    font-feature-settings: 'kern', 'liga';
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Arabic numerals render more evenly in the Latin forms at display sizes. */
+  [dir='rtl'] .tabular {
+    font-variant-numeric: tabular-nums;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-balance;
+  }
+
+  ::selection {
+    @apply bg-royal-600 text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-royal-600 ring-offset-2 ring-offset-white rounded-sm;
+  }
+
+  /* Respect the OS-level motion preference: everything still works, it just
+     arrives instantly instead of animating. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-[0.14em] text-royal-700;
+  }
+
+  [dir='rtl'] .eyebrow {
+    @apply tracking-normal;
+  }
+
+  .card {
+    @apply rounded-card border border-mist-200 bg-white shadow-card transition-[transform,box-shadow,border-color] duration-500 ease-premium;
+  }
+
+  .card-interactive {
+    @apply card hover:-translate-y-1 hover:border-royal-200 hover:shadow-card-hover;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.9375rem] font-medium
+           transition-[background-color,color,box-shadow,transform] duration-300 ease-premium
+           active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-royal-700 text-white shadow-[0_8px_20px_-8px_rgba(23,71,207,0.6)] hover:bg-royal-800;
+  }
+
+  .btn-secondary {
+    @apply btn border border-navy-200 bg-white text-navy-800 hover:border-royal-300 hover:bg-mist-50;
+  }
+
+  .btn-ghost {
+    @apply btn text-navy-700 hover:bg-mist-100;
+  }
+
+  /* The single decorative motif used across the site: a faint technical grid,
+     standing in for circuitry without resorting to glow or particles. */
+  .grid-motif {
+    background-image:
+      linear-gradient(to right, rgba(29, 90, 232, 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(29, 90, 232, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .grid-motif-fade {
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 78%);
+  }
+
+  .rule-gradient {
+    @apply h-px w-full border-0;
+    background: linear-gradient(to right, transparent, rgba(29, 90, 232, 0.28), transparent);
+  }
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+}
+
+@layer utilities {
+  .scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.mist.300') transparent;
+  }
+  .scrollbar-slim::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-slim::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    background-color: theme('colors.mist.300');
+    border-radius: 999px;
+  }
+}

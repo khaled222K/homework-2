@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="مدارس الموهوبين التقنية">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1524"/>
+      <stop offset="100%" stop-color="#142350"/>
+    </linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0v56" fill="none" stroke="#1d5ae8" stroke-opacity="0.18" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1000" cy="90" r="320" fill="#1d5ae8" fill-opacity="0.16"/>
+  <g transform="translate(96 232)">
+    <rect x="0" y="-92" width="56" height="4" rx="2" fill="#599cff"/>
+    <text x="0" y="0" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="76" font-weight="700" fill="#ffffff" direction="rtl">مدارس الموهوبين التقنية</text>
+    <text x="0" y="78" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="34" fill="#8ebfff" direction="rtl">بالشراكة بين وزارة التعليم وأكاديمية طويق</text>
+    <text x="0" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#c3d2e7" direction="rtl">علوم الحاسب · الذكاء الاصطناعي · الميكاترونيكس · الأمن السيبراني</text>
+  </g>
+</svg>

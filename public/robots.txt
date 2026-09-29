@@ -1,0 +1,3 @@
+# Single-page site; all content is on one document reachable at /.
+User-agent: *
+Allow: /
